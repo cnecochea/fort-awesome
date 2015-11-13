@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport">
+    <style>
+      body {
+        margin: 0;
+      }
+
+      figure {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        background-color: rgba(218, 165, 32, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      figcaption {
+        font-family: Georgia, serif;
+        font-size: 5rem;
+      }
+
+    </style>
+  </head>
+  <body>
+    <main>
+
+      <form>
+        <input type="text" onblur='responsiveVoice.speak(this.value);'>
+      </form>
+
+      <a href="#">this should work out of the box.</a>
+      <a href="#">Hi, Guy.</a>
+
+      <figure id="canvas">
+        <img src="" alt="">
+        <figcaption></figcaption>
+      </figure>
+
+    </main>
+
+    <script src='//vws.responsivevoice.com/v/e?key=FZ9XRS5z'></script>
+    <script>
+
+    var words = ['ready?', 'any', 'from', 'both'];
+    var canvas = document.getElementById('canvas');
+    var count = 0;
+
+    function nextCard() {
+      console.log('slide' + count);
+      var caption = canvas.querySelectorAll('figcaption')[0];
+      caption.innerHTML = words[count];
+      caption.addEventListener('click', function(e) {
+        responsiveVoice.speak(words[count]);
+      });
+      count++;
+      /*if (count == canvas.length - 1) {
+        count = 0;
+      }
+      else {
+        count++;
+      }*/
+    }
+
+    canvas.addEventListener('click', function(e) {
+      nextCard();
+    });
+
+    function ready(fn) {
+      if (document.readyState != 'loading') {
+        fn();
+      }
+      else {
+        document.addEventListener('DOMContentLoaded', fn);
+      }
+    }
+
+    // onload
+    ready(function() {
+      nextCard();
+    });
+
+    </script>
+  </body>
+
+</html>
